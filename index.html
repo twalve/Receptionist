@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html lang=en>
+	<head>
+  	<meta charset=UTF-8>
+  	<meta name=viewport content="width=device-width, initial-scale=1">
+  	<title>receptionist</title>
+
+    <link rel=stylesheet href='//fonts.googleapis.com/css?family=Lato:300'>
+    <link rel=stylesheet href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+    <link rel=stylesheet href="style/sheet.css">
+    <link rel=stylesheet href="style/query.css">
+
+    <style></style>
+
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="style/sheet_ie.css">
+    <![endif]-->
+  </head>
+
+  <body class="single unloaded">
+    <div role=main id=main class=main>
+      <header>
+        <h1></h1>
+      </header>
+
+      <section>
+        <header id="header">
+          <h1>rece<i class="icon-bullhorn"></i>tionist</h1>
+          <menu>
+            <ul>
+              <li><a id="back" class="icon"><i class="icon-chevron-sign-left"></i><small>back</small></a></li>
+              <li><a id="edit" class="edit icon"><i class="icon-edit-sign"></i><small>edit</small></a></li>
+            </ul>
+          </menu>
+        </header>
+
+        <div id="placeholder"></div>
+
+        <footer>
+          <menu id='control'>
+            <button type='button' id='refresh'>Refresh</button>
+            <button type='button' id='create'>Add</button>
+          </menu>
+        </footer>
+      </section>
+
+      <section id="admin">
+        <input id="source" value="http://localhost:1337/">
+        <textarea id="response"></textarea>
+        <button id="fetch">FETCH</button>
+      </section>
+
+      <footer id="footer">
+        <p>&copy;<span id="year">2013</span> Bilue
+      </footer>
+    </div>
+
+    <aside id="overlay">
+      <strong id="spinner">&nbps;</strong>
+      <div id="editholder"></div>
+    </aside>
+
+    <script id="show-companies" type="text/x-handlebars-template">
+      <ul id="members" class="companies">
+        {{#companies}}
+         <li data-id="{{id}}">
+            <div>
+              <img class="avatar" src="{{logo}}">
+              <p class="name">{{name}}</p>
+              <a class="action mask" href="{{name}}"></a>
+            </div>
+            <menu>
+              <a class="icon item-delete"><i class="icon-remove"></i><small>Delete</small></a>
+              <a class="icon item-edit"><i class="icon-pencil"></i><small>Edit</small></a>
+            </menu>
+          </li>
+        {{/companies}}
+      </ul>
+    </script>
+
+    <script id="show-members" type="text/x-handlebars-template">
+      <ul id="members" class="members">
+        {{#members}}
+         <li data-id="{{id}}">
+            <div>
+              <img class="avatar" src="{{logo}}">
+              <p class="name">{{name}}</p>
+              <p class="role">{{role}}</p>
+              <a class="email" href="mailto://{{email}}">{{email}}</a>
+              <a class="phone" href="tel://{{phone}}"><i class="icon-phone"></i>{{phone}}</a>
+            </div>
+            <menu>
+              <a class="icon item-delete"><i class="icon-remove"></i><small>Delete</small></a>
+              <a class="icon item-edit"><i class="icon-pencil"></i><small>Edit</small></a>
+            </menu>
+          </li>
+        {{/members}}
+      </ul>
+    </script>
+
+    <script id="edit-companies" type="text/x-handlebars-template">
+      <a class="close icon"><i class="icon-remove-circle"></i></a>
+
+      <form method="post" enctype="multipart/form-data" id="upload" action="http://localhost:1337/upload">
+        <fieldset>
+          <legend>Avatar</legend>
+          {{#if logo}}
+              <img class="avatar" src="{{logo}}">
+          {{else}}
+              <img class="avatar" src="graphics/default.png">
+          {{/if}}
+
+          <input type="hidden" id="uploaded">
+          <input type="file" name="file" id="file" data-id="{{id}}">
+          <input type="submit" value="Submit" id="uploadFile">
+        </fieldset>
+      </form>
+
+      <form id="member" class="companies">
+        <fieldset>
+          <legend>Details</legend>
+          
+          {{#if logo}}
+              <input type="hidden" id="edit-logo" value="{{logo}}">
+          {{else}}
+              <input type="hidden" id="edit-logo" value="">
+          {{/if}}
+
+          <label for="edit-name">Company name</label>
+          <input type="text" id="edit-name" placeholder="Name" value="{{name}}">
+        </fieldset>
+
+        <fieldset class="right">
+          <button type="button" id="cancel">Cancel</button>
+          <button type="button" id="return">Save</button>
+        </fieldset>
+      </form>
+    </script>
+
+    <script id="edit-members" type="text/x-handlebars-template">
+      <a class="close icon"><i class="icon-remove-circle"></i></a>
+
+      <form method="post" enctype="multipart/form-data" id="upload" action="http://localhost:1337/upload">
+        <fieldset>
+          <legend>Avatar</legend>
+          {{#if logo }}
+              <img class="avatar" src="{{logo}}">
+          {{else}}
+              <img class="avatar" src="graphics/undefined.png">
+          {{/if}}
+
+          <input type="hidden" id="uploaded">
+          <input type="file" name="file" id="file">
+          <input type="submit" value="Submit" id="uploadFile">
+        </fieldset>
+      </form>
+
+      <form id="member" class="members">
+        <fieldset>
+          <legend>Details</legend>
+          <input type="hidden" id="edit-logo" value="{{logo}}">
+          
+          <label for="edit-name">Name</label>
+          <input type="text" id="edit-name" placeholder="Name" value="{{name}}">
+          
+          <label for="edit-email">Email</label>
+          <input type="email" id="edit-email" placeholder="Email" value="{{email}}">
+
+          <label for="edit-phone">Phone number</label>
+          <input type="phone" id="edit-phone" placeholder="+61 XXX XXX XXX" value="{{phone}}">
+          
+          <label for="edit-position">Position</label>
+          <input type="text" id="edit-position" placeholder="Position" value="{{position}}">
+        </fieldset>
+
+        <fieldset class="right">
+          <button type="button" id="cancel">Cancel</button>
+          <button type="button" id="return">Save</button>
+        </fieldset>
+      </form>
+
+    </script>
+
+    <script id="confirm-delete" type="text/x-handlebars-template">
+      <a class="close icon"><i class="icon-remove-circle"></i></a>
+
+      <h1>Delete{{#if name}} name{{/if}}?</h1>
+      
+      {{#if name }}
+          <p>Please confirm you&#39;d like to delete {{name}}</p>
+      {{else}}
+          <p>Please confirm delete request</p>
+      {{/if}}
+
+      <form id="member" class="members">
+        <fieldset class="center">
+          <button type="button" id="cancel">Cancel</button>
+          <button type="button" id="confirm">Confirm</button>
+        </fieldset>
+      </form>
+    </script>
+
+    <script data-main="scripts/setup" src="scripts/require.js"></script>
+    <!-- // <script src="/_uuid/uuid.min.js"></script> -->
+
+  </body>
+</html>

@@ -1,0 +1,17 @@
+@media screen and (max-width: 400px) {
+  html {
+    width: 320px;
+  }
+}
+
+@media screen and (min-width: 401px) {
+  
+}
+
+@media screen and (min-width: 800px) {
+  #main {
+    margin: 0 auto;
+    width: 800px;
+    max-width: 800px;
+  }
+}
