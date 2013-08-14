@@ -3,7 +3,7 @@
 	<head>
   	<meta charset=UTF-8>
   	<meta name=viewport content="width=device-width, initial-scale=1">
-  	<title>receptionist</title>
+  	<title>receptioni.st</title>
 
     <link rel=stylesheet href='//fonts.googleapis.com/css?family=Lato:300'>
     <link rel=stylesheet href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
@@ -25,7 +25,7 @@
 
       <section>
         <header id="header">
-          <h1>rece<i class="icon-bullhorn"></i>tionist</h1>
+          <h1>rece<i class="icon-bullhorn"></i>tioni.st</h1>
           <menu>
             <ul>
               <li><a id="back" class="icon"><i class="icon-chevron-sign-left"></i><small>back</small></a></li>
@@ -61,13 +61,13 @@
     </aside>
 
     <script id="show-companies" type="text/x-handlebars-template">
-      <ul id="members" class="companies">
+      <ul id="members" class="companies ui-sortable">
         {{#companies}}
-         <li data-id="{{id}}">
+         <li data-id="{{id}}" class="ui-state-default">
             <div>
               <img class="avatar" src="{{logo}}">
               <p class="name">{{name}}</p>
-              <a class="action mask" href="{{name}}"></a>
+              <a class="action mask"></a>
             </div>
             <menu>
               <a class="icon item-delete"><i class="icon-remove"></i><small>Delete</small></a>
@@ -79,9 +79,9 @@
     </script>
 
     <script id="show-members" type="text/x-handlebars-template">
-      <ul id="members" class="members">
+      <ul id="members" class="members ui-sortable">
         {{#members}}
-         <li data-id="{{id}}">
+         <li data-id="{{id}}" class="ui-state-default">
             <div>
               <img class="avatar" src="{{logo}}">
               <p class="name">{{name}}</p>

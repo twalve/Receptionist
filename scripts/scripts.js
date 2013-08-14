@@ -122,7 +122,18 @@ var RCPTN = {
     $(document.body).toggleClass("editing");
   },
   editable: function() {
-    $(document.body).toggleClass("editable");
+    var $body = $(document.body);
+
+    $body.toggleClass("editable");
+
+    if ($body.hasClass("editable")) {
+      RCPTN.sorting();
+      $('.mask').removeClass("action");
+    }
+    else {
+      RCPTN.unsorting();
+      $('.mask').addClass("action");
+    }
   },
   excise: function(which) {
     var temp = RCPTN.DATA;
@@ -215,6 +226,25 @@ var RCPTN = {
         RCPTN.fetch();
       }
     });
+  },
+  sorting: function() {
+    $("#members").sortable({
+      placeholder: "ui-state-highlight",
+      start: function(event, ui) {
+        console.log("stated at => " + ui.item.index())
+      },
+      drag: function() {
+
+      },
+      stop: function(event, ui) {
+        console.log("ended at => " + ui.item.index())
+
+        // resort(this);
+      }
+    }).disableSelection();
+  },
+  unsorting: function() {
+    $("#members").sortable("destroy");
   },
   stamp: function() {
     return (new Date()).getTime();

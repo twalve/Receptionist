@@ -128,15 +128,24 @@ input {
   text-align: center;
 }
 
-#members li { 
+#members li {
+  background-color: whitesmoke;
   border: .1rem solid #DADADA;
   display: inline-block;
   margin: 0 .75rem 1rem 0;
+  min-height: 12rem;
   padding: .25rem;
   position: relative;
   text-align: left;
   vertical-align: top;
   width: 9.5rem;
+}
+
+#members li.ui-state-highlight {
+  border: .1rem dashed #DADADA;
+  margin: .5rem 1.25rem 1rem .5rem;
+  min-height: 11rem;
+  width: 8.5rem;
 }
 
 #members a {
@@ -294,6 +303,7 @@ header menu .icon:hover {
 }
 
 .editable #members menu {
+  cursor: move;
   display: block;
 }
 
